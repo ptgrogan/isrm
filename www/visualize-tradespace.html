@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ISRM Tradespace Visualization</title>
+		<meta name="description" content="Visualization service for the Interactive Schedule Reduction Model (ISRM).">
+		<meta name="author" content="Paul T. Grogan">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles/normalize.css">
+		<link rel="stylesheet" href="styles/skeleton.css">
+		<link rel="stylesheet" href="styles/style.css">
+		<link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="stylesheet" href="styles/base/jquery.ui.all.css">
+		<link rel='stylesheet' href='styles/spectrum.css' />
+		<script data-main="scripts/visualize-tradespace" src="scripts/lib/require.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<div style="float:left;"><a class="button" href="index.html">Back</a></div>
+				<h1>ISRM Tradespace Visualization</h1>
+			</header>
+			<div class="header row">
+				<div class="two columns"><h3>Settings</h3></div>
+				<div class="two columns">
+					<label for="initTime">t<sub>0</sub></label>
+					<input type="text" title="Initial Time" id="initTime" class="u-full-width" />
+				</div>
+				<div class="two columns">
+					<label for="timeStep">&Delta;t</label>
+					<input type="text" title="Time Step Duration" id="timeStep" class="u-full-width" />
+				</div>
+				<div class="two columns">
+					<label for="maxTime">t<sub>max</sub></label>
+					<input type="text" title="Maximum Time" id="maxTime" class="u-full-width" />
+				</div>
+				<div class="two columns">
+					<label for="integrationMethod">Method</label>
+					<select id="integrationMethod" class="u-full-width" disabled><option value="euler">Euler</option></select>
+				</div>
+				<div class="two columns">
+					<label for="modelVersion">Model</label>
+					<input type="text" title="Model Name and Version" id="modelVersion" class="u-full-width" disabled />
+				</div>
+			</div>
+			<div class="content row">
+				<div class="four columns">
+					<label for="runs">Runs</label>
+					<select id="runs" size="10" class="u-full-width" style="height:250px;"></select>
+				</div>
+				<div class="four columns">
+						<label for="runID">Run ID</label><input id="runID" type="text" class="u-full-width" disabled />
+						<label for="runParameters">Run Parameters</label><textarea id="runParameters" rows="6" class="u-full-width" style="height:175px;" disabled></textarea>
+				</div>
+				<div class="four columns">
+					<label for="runTag">Run Tag</label><input id="runTag" type="text" class="u-full-width" disabled /> <button id="updateTag" disabled>Update</button> <button id="removeTag" disabled>Remove</button>
+					<label for="runColor">Run Color</label><input type="text" id="runColor" /> <button id="resetColor" disabled>Reset</button>
+				</div>
+			</div>
+			<div class="content row">
+				<div class="one column"><select id="yAxisVariable" class="rotated" style="position:relative;top:130px;left:-130px;width:300px;"></select></div>
+				<div class="eight columns">
+					<div id="tradespace" class="u-full-width" style="height:300px;"></div>
+					<select id="xAxisVariable" class="u-full-width"></select>
+				</div>
+				<div class="three columns" id="overview" style="height:150px;"></div>
+			</div>
+			<footer>Copyright &copy; 2015 Paul T. Grogan, Massachusetts Institute of Technology. All Rights Reserved.</footer>
+		</div>
+	</body>
+</html>

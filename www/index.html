@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ISRM: Interactive Schedule Reduction Model</title>
+        <meta name="description" content="Dashboard for the Interactive Schedule Reduction Model (ISRM).">
+        <meta name="author" content="Paul T. Grogan">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles/normalize.css">
+        <link rel="stylesheet" href="styles/skeleton.css">
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="stylesheet" href="styles/base/jquery.ui.all.css">
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>ISRM Dashboard</h1>
+            </header>
+            <div class="content row">
+                <div class="one-third column" style="text-align:center;"><a href="benchmark-standalone.html" class="button button-primary">Benchmark</a> <a href="standalone.html" class="button button-primary">Standalone Tool</a></div>
+                <div class="two-thirds column"><p>Demonstrates the standalone variant of the ISRM tool. This application runs completely within a browser and supports local model execution for fixed scenarios. The benchmark application quantitatively evaluates execution performance for scenarios with and without META design processes and simulators with and without data logging. The standalone application provides a graphical user interface illustrating model structure and documentation, time history output plots, and export capabilities (CSV, JSON formats).</p></div>
+            </div>
+            <div class="content row">
+                <div class="one-third column" style="text-align:center;"><a href="benchmark-service.html" class="button button-primary">Benchmark</a> <a href="execution.html" class="button button-primary">Execution Service</a> <a href="visualize-history.html" class="button button-primary">Time Series Vis.</a> <a href="visualize-sensitivity.html" class="button button-primary">Sensitivity Vis.</a> <a href="visualize-tradespace.html" class="button button-primary">Tradespace Vis.</a></div>
+                <div class="two-thirds column"><p>Demonstrates a service-based variant of the ISRM tool. This application runs as a client service in a browser and a separate data service provides database access to stored results and remote execution. The benchmark application quantitatively evaluates local and remote execution performance for scenarios with and without META design processes. The execution service application supports full-factorial design studies varying key model parameters with local and remote model execution. Three visualizations support graphical tradespace exploration, sensitivity analysis, and time series comparison.</p></div>
+            </div>
+            <div class="content row">
+                <div class="twelve columns"><p><em>Disclaimer: </em> This project is based upon work supported, in whole or in part, by the U.S. Department of Defense through the Systems Engineering Research Center (SERC) under Contract HQ0034-13-D-0004. SERC is a federally funded University Affiliated Research Center managed by Stevens Institute of Technology. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the United States Department of Defense.</p></div>
+            </div>
+            <footer>Copyright &copy; 2015 Paul T. Grogan, Massachusetts Institute of Technology. All Rights Reserved.</footer>
+        </div>
+    </body>
+</html>

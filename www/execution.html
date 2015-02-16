@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ISRM Execution Service</title>
+        <meta name="description" content="Execution service for the Interactive Schedule Reduction Model (ISRM).">
+        <meta name="author" content="Paul T. Grogan">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles/normalize.css">
+        <link rel="stylesheet" href="styles/skeleton.css">
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="stylesheet" href="styles/base/jquery.ui.all.css">
+        <script data-main="scripts/execution" src="scripts/lib/require.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div style="float:left;"><a class="button" href="/">Back</a></div>
+                <h1>ISRM Execution Service</h1>
+            </header>
+            <div class="header row">
+                <div class="two columns"><h3>Settings</h3></div>
+                <div class="two columns">
+                    <label for="initTime">t<sub>0</sub></label>
+                    <input type="text" title="Initial Time" id="initTime" class="u-full-width" />
+                </div>
+                <div class="two columns">
+                    <label for="timeStep">&Delta;t</label>
+                    <input type="text" title="Time Step Duration" id="timeStep" class="u-full-width" />
+                </div>
+                <div class="two columns">
+                    <label for="maxTime">t<sub>max</sub></label>
+                    <input type="text" title="Maximum Time" id="maxTime" class="u-full-width" />
+                </div>
+                <div class="two columns">
+                    <label for="integrationMethod">Method</label>
+                    <select id="integrationMethod" class="u-full-width" disabled><option value="euler">Euler</option></select>
+                </div>
+                <div class="two columns">
+                    <label for="modelVersion">Model</label>
+                    <input type="text" title="Model Name and Version" id="modelVersion" class="u-full-width"disabled />
+                </div>
+            </div>
+            <div class="content row">
+                <div class="two columns"><h3>Parameters</h3></div>
+                <div class="four columns">
+                    <label for="parameters">Fixed Parameters</label>
+                    <select id="parameters" size="10" class="u-full-width" style="height:200px"></select>
+                    
+                </div>
+                <div class="two columns" style="text-align:center;padding-top:100px;">
+                    <button id="varyParameter" disabled>Vary</button>
+                    <button id="fixVariable" disabled>Fix</button>
+                </div>
+                <div class="four columns">
+                    <label for="variables">Variable Parameters</label>
+                    <select id="variables" size="10" class="u-full-width" style="height:200px"></select>
+                </div>
+            </div>
+            <div class="content row">
+                <div class="two columns offset-by-two">
+                    <label for="defaultValue">Default</label>
+                    <input id="defaultValue" type="text" class="u-full-width" disabled />
+                </div>
+                <div class="two columns">
+                    <label for="minValue">Min</label>
+                    <input id="minValue" type="text" class="u-full-width" disabled />
+                </div>
+                <div class="two columns">
+                    <label for="maxValue">Max</label>
+                    <input id="maxValue" type="text" class="u-full-width" disabled />
+                </div>
+                <div class="two columns">
+                    <label for="stepSize">Step Size</label>
+                    <input id="stepSize" type="text" class="u-full-width" disabled />
+                </div>
+                <div class="two columns">
+                    <label for="levels">Values</label>
+                    <select id="levels" size="5" class="u-full-width" style="height:100px" disabled></select>
+                </div>
+            </div>
+            <div class="content row">
+                <div class="two columns"><h3>Execution</h3></div>
+                <div class="five columns">
+                    <label for="runs">Runs</label>
+                    <select id="runs" size="10" class="u-full-width" style="height:150px"></select>
+                    <select id="mode"><option value="local">Local</option><option value="remote">Remote</option></select>
+                    <button id="execute" disabled>Execute</button> <button id="executeAll" disabled>Exe All</button>
+                </div>
+                <div class="five columns">
+                        <label for="runParameters">Run Parameters</label><textarea id="runParameters" rows="6" class="u-full-width" style="height:150px;" disabled></textarea>
+                        <label for="runID">Run ID</label><input id="runID" type="text" class="u-full-width" disabled />
+                        <label for="runTag">Run Tag</label><input id="runTag" type="text" class="u-full-width" disabled /> <button id="updateTag" disabled>Update</button> <button id="removeTag" disabled>Remove</button>
+                </div>
+            </div>
+            <footer>Copyright &copy; 2015 Paul T. Grogan, Massachusetts Institute of Technology. All Rights Reserved.</footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ISRM Service-based Benchmark</title>
+        <meta name="description" content="Benchmark application for the Service-based Interactive Schedule Reduction Model (ISRM).">
+        <meta name="author" content="Paul T. Grogan">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles/normalize.css">
+        <link rel="stylesheet" href="styles/skeleton.css">
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="stylesheet" href="styles/base/jquery.ui.all.css">
+        <script data-main="scripts/benchmark-service" src="scripts/lib/require.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div style="float:left;"><a class="button" href="index.html">Back</a></div>
+                <h1>ISRM Service-based Benchmark</h1>
+            </header>
+            <div class="header row">
+                <div class="one-third column"><label for="numBurnIn"># Burn In</label><input type="text" id="numBurnIn" title="Number of simulations to execute before collecting data." /></div>
+                <div class="one-third column"><label for="numTrials"># Trials</label><input type="text" id="numTrials" title="Number of simulations to execute to collect data." /></div>
+                <div class="one-third column"><label>Options</label><label><input type="checkbox" id="meta" title="Enable (check) or disable (uncheck) META processes."  /> <span class="label-body">META</span></label></div>
+            </div>
+            <div class="content row">
+                <div class="one-third column">
+                    <table>
+                        <thead><tr><th>Local Execution</th><td><button id="locExecute">Run</button></td></tr></thead>
+                        <tbody>
+                            <tr><td>Number Trials</td><td id="locNumTrials"></td></tr>
+                            <tr><td>Mean Execution Time</td><td id="locMeanTime"></td></tr>
+                            <tr><td>Standard Error</td><td id="locStdError"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="two-thirds column plot" id="locPlaceholder"></div>
+            </div>
+            <div class="content row">
+                <div class="one-third column">
+                    <table>
+                        <thead><tr><th>Remote Execution</th><td><button id="remExecute">Run</button></td></tr></thead>
+                        <tbody>
+                            <tr><td>Number Trials</td><td id="remNumTrials"></td></tr>
+                            <tr><td>Mean Execution Time</td><td id="remMeanTime"></td></tr>
+                            <tr><td>Standard Error</td><td id="remStdError"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="two-thirds column plot" id="remPlaceholder"></div>
+            </div>
+            <div class="content row">
+                <div class="one-third column">
+                    <table>
+                        <thead><tr><th>Data/Result Query</th><td><button id="qryExecute">Run</button></td></tr></thead>
+                        <tbody>
+                            <tr><td colspan="2"><input type="text" class="u-full-width" id="qryPath" /></td></tr>
+                            <tr><td>Number Trials</td><td id="qryNumTrials"></td></tr>
+                            <tr><td>Mean Execution Time</td><td id="qryMeanTime"></td></tr>
+                            <tr><td>Standard Error</td><td id="qryStdError"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="two-thirds column plot" id="qryPlaceholder"></div>
+            </div>
+            <footer>Copyright &copy; 2015 Paul T. Grogan, Massachusetts Institute of Technology. All Rights Reserved.</footer>
+        </div>
+    </body>
+</html>

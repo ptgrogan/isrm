@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color:#bdf;
+    font-family:sans-serif;
+    font-size:.8em;
+}
+#wrapper {
+    background-color:#666;
+    border:5px solid #666;
+    margin: 0 auto;
+    width:1080px;
+    margin: 0 auto;
+}
+#simControl {
+    text-align:center;
+    height:25px;
+    color:#fff;
+    margin: 10px 0;
+}
+#simControl h1 {
+    float:left;
+    margin:0 0 0 .5em;
+    padding:.1em;
+    font-size:1.8em;
+}
+#simControl input, #settingsDialog input, #parameterDialog input, #flowDialog input, #stockDialog input {
+    text-align: right;
+}
+#simOutput {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color:#fff;
+    height:350px;
+}
+#modelView {
+    background-color:#fff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.rotated {
+    -ms-transform:rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+    transform:rotate(-90deg);
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ISRM Standalone</title>
+		<meta name="description" content="Standalone Tool for the Interactive Schedule Reduction Model (ISRM).">
+		<meta name="author" content="Paul T. Grogan">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles/normalize.css">
+		<link rel="stylesheet" href="styles/skeleton.css">
+		<link rel="stylesheet" href="styles/style.css">
+		<link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="stylesheet" href="styles/base/jquery.ui.all.css">
+		<script data-main="scripts/standalone" src="scripts/lib/require.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<div style="float:left;"><a class="button" href="index.html">Back</a></div>
+				<h1>ISRM Standalone</h1>
+				<div class="header row">
+					<span>t<sub>0</sub>:</span> <input type="text" title="Initial Time" id="initTime" size="3" /> 
+					<span>&Delta;t:</span> <input type="text" title="Time Step Duration" id="timeStep" size="3" />
+					<span>t:</span> <input type="text" title="Current Time" id="time" size="3" disabled />
+					<span>t<sub>max</sub>:</span> <input type="text" title="Maximum Time" id="maxTime" size="3" />
+					<button id="execute" title="Execute Simulation"><img id="executeImg" src="images/execute.png" alt="execute" /></button>
+					<!--<button id="start" title="Start Simulation"><img id="startImg" src="images/start.png" alt="start" /></button>
+					<button id="stop" title="Stop Simulation" disabled><img id="stopImg" src="images/stop-disabled.png" alt="stop" /></button>-->
+					<button id="reset" title="Reset Simulation" disabled><img id="resetImg" src="images/reset-disabled.png" alt="reset" /></button>
+					<div style="float:right;">
+						<button id="exportCsv" title="Export Data to CSV"><img src="images/csv.png" alt="export csv" /></button>
+						<button id="exportJson" title="Export Data to JSON"><img src="images/json.png" alt="export json" /></button>
+						<button id="settings" title="Edit Simulation Settings"><img src="images/settings.png" alt="settings" /></button>
+					</div>
+				</div>
+			</header>
+			<div class="content row">
+				<div class="one-half column plot" id="leftPlot" style="height:300px;"></div>
+				<div class="one-half column plot" id="rightPlot" style="height:300px;"></div>
+			</div>
+			<div class="content row">
+				<div class="twelve-columns"><div id="stockFlowDiagram"></div></div>
+			</div>
+			<footer>Copyright &copy; 2015 Paul T. Grogan, Massachusetts Institute of Technology. All Rights Reserved.</footer>
+		</div>
+		<div id="parameterDialog" class="dialog container" title="Edit Parameter">
+			<div class="row"><div class="six columns"><label for="parameterInput" id="parameterName"></label></div><div class="three columns"><input type="text" id="parameterInput" class="u-full-width" /></div><div class="three columns"><span id="parameterUnits"></span></div></div>
+			<div><span id="parameterDesc"></span></div>
+		</div>
+		<div id="flowDialog" class="dialog container" title="View Flow">
+			<div class="row"><div class="six columns"><label for="flowInput" id="flowName"></label></div><div class="three columns"><input type="text" id="flowInput" class="u-full-width"disabled /></div><div class="three columns"><span id="flowUnits"></span></div></div>
+			<div><span id="flowDesc"></span></div>
+			<div><span id="flowVar"></span> = <span id="flowEqn"></span></div>
+			<div style="text-align:right">
+				<span class="label-body">Plotting:</span>
+				<select id="flowPlotId">
+					<option value="0">Left</option>
+					<option value="1">Right</option>
+				</select>
+				<button id="flowPlot">
+					<img id="flowPlotImg" src="images/add.png" alt="plot" />
+				</button>
+			</div>
+		</div>
+		<div id="stockDialog" class="dialog container" title="View/Edit Stock">
+			<div class="row"><div class="six columns"><label for="stockInput" id="stockName"></label></div><div class="three columns"><input type="text" id="stockInput" class="u-full-width" disabled /></div><div class="three columns"><span id="stockUnits"></span></div></div>
+			<div class="row"><div class="three columns offset-by-six"><input type="text" id="stockInitInput" class="u-full-width" disabled /></div><div class="three columns">(Initial)</div></div>
+			<div><span id="stockDesc"></span></div>
+			<div><span id="stockVar"></span> = &#x222b; <span id="stockEqn"></span></div>
+			<div style="text-align:right">
+				<span class="label-body">Plotting:</span>
+				<select id="stockPlotId">
+					<option value="0">Left</option>
+					<option value="1">Right</option>
+				</select>
+				<button id="stockPlot">
+					<img id="stockPlotImg" src="images/add.png" alt="plot" />
+				</button>
+			</div>
+		</div>
+		<div id="settingsDialog" class="dialog container" title="Simulation Settings">
+			<div class="row"><div class="six columns"><label for="animationRate">Animation rate:</label></div><div class="three columns"><input type="text" id="animationRate" class="u-full-width" /></div><div class="three columns">Hz (Max)</div></div>
+			<div class="row"><div class="six columns"><label for="updateRate">Axis update rate:</label></div><div class="three columns"><input type="text" id="updateRate" class="u-full-width" /></div><div class="three columns">Hz (Max)</div></div>
+			<div class="row"><div class="six columns"><label for="integrationMethod">Integration method:</label></div><div class="six columns"><select id="integrationMethod" disabled><option value="euler">Euler</option></select></div></div>
+		</div>
+	</body>
+</html>

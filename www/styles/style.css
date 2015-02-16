@@ -1,0 +1,92 @@
+body {
+    background-color:#bdf;
+    font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.container {
+    background-color:#666;
+    border:5px solid #666;
+}
+.dialog {
+    display:none;
+}
+h1 { font-size: 4.0rem; margin-bottom: .5rem; }
+h2 { font-size: 3.6rem; }
+h3 { font-size: 3.0rem; }
+h4 { font-size: 2.4rem; }
+h5 { font-size: 1.8rem; }
+h6 { font-size: 1.5rem; }
+.header {
+    color:#fff;
+}
+.header input {
+    color:#000;
+}
+.header span {
+    color:#fff;
+}
+header a.button,
+header button 
+.header a.button,
+.header button {
+    color: #ccc;
+    background-color: #333;
+}
+header a.button:hover,
+.header a.button:hover {
+    color: #ccc;
+    background-color:#000;
+}
+.header select[disabled],
+.header input[disabled],
+.header button[disabled] {
+    color:#000;
+    background-color: #ccc;
+}
+.content {
+    background-color:#fff;
+}
+.content:first-of-type {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-top:10px;
+}
+.content:last-of-type {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-bottom:10px;
+}
+header h1 {
+    color:#fff;
+    text-align:center;
+}
+footer {
+    text-align:center;
+    font-size:1.2rem;
+    color:#ccc;
+}
+button[disabled],
+select[disabled],
+html input[disabled],
+textarea[disabled] {
+    background-color:#ccc;
+}
+.column, .columns {
+    padding:0 5px;
+}
+.plot {
+    height:250px;
+}
+.plot th,
+.plot td {
+    font-size:1rem;
+    padding: 2px;
+    border:none;
+}
+.rotated {
+    -ms-transform:rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+    transform:rotate(-90deg);
+}
+.row {
+    overflow:hidden;
+}
