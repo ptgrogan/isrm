@@ -22,3 +22,5 @@ Please contact the author with any questions.
 
 1. Grogan, P. T., O. L. de Weck, A. M. Ross, and D. H. Rhodes, "Interactive models as a system design tool: Applications to system project management", 2015 Conference on Systems Engineering Research, March 2015, to appear.
 2. de Weck, O. L., "Feasibility of a 5X Speedup in System Development Due to META Design," International Design Engineering Technical Conferences & Computers and Information in Engineering Conference, Chicago, Illinois, August 2012.
+
+Disclaimer: This project is based upon work supported, in whole or in part, by the U.S. Department of Defense through the Systems Engineering Research Center (SERC) under Contract HQ0034-13-D-0004. SERC is a federally funded University Affiliated Research Center managed by Stevens Institute of Technology. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the United States Department of Defense.
