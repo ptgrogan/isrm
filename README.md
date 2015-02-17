@@ -11,6 +11,7 @@ Prerequisites:
  * [MongoDB](http://www.mongodb.org/)
 
 Installation/start-up instructions:
+
 1. Clone this repository
 2. Install dependent Node modules (run command `npm install` from project root)
 3. Create data directory (recommended to make in project root, e.g. `mkdir data`)
