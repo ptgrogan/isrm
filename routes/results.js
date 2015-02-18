@@ -187,21 +187,23 @@ router.get('/:id/finalOutputs/:output', function(req, res) {
 
 /* POST to data list. */
 router.post('/', function(req, res) {
-    req.db.collection('results').update(
+    req.db.collection('results').findAndModify(
         {
             model: req.body.model,
             version: req.body.version,
             settings: req.body.settings,
             params: req.body.params
-        }, req.body,
-        { upsert: true },
-        function(err, result) {
+        }, 
+        [['_id','asc']],
+        req.body,
+        { new: true, upsert: true },
+        function(err, doc) {
             if(err===null) {
-                console.log(result);
+                console.log(doc._id);
             } else {
                 console.log(err);
             }
-            res.send((err===null)?{msg:''}:{msg:err});
+            res.send((err===null)?{'_id': doc._id}:{err:err});
         }
     );
     /*

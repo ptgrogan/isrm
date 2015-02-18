@@ -53,21 +53,23 @@ router.post('/', function(req, res) {
                 }
             }
             
-            req.db.collection('results').update(
+            req.db.collection('results').findAndModify(
                 {
                     model: data.model,
                     version: data.version,
                     settings: data.settings,
                     params: data.params
-                }, data,
-                { upsert: true },
-                function(err, result) {
+                },
+                [['_id','asc']],
+                data,
+                { new: true, upsert: true },
+                function(err, doc) {
                     if(err===null) {
-                        console.log(result);
+                        console.log(doc._id);
                     } else {
                         console.log(err);
                     }
-                    res.send((err===null)?{msg:''}:{msg:err});
+                    res.send((err===null)?{'_id': doc._id}:{err:err});
                 }
             );
         });
