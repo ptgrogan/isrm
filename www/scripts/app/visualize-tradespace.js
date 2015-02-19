@@ -256,30 +256,41 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
     }
 
     $("#runs").on("change", function() {
-        var id = $("#runs").val();
-        $("#runs").attr('disabled','disabled');
-        $("#runID").val(id);
-        if($("#runs option:selected").text()===id) {
-            $("#runTag").val([]);
-            $("#removeTag").attr('disabled','disabled');
+        if($("#runs").val().length===1) {
+            var id = $("#runs").val()[0];
+            $("#runs").attr('disabled','disabled');
+            $("#runID").val(id);
+            if($("#runs option:selected").text()===id) {
+                $("#runTag").val([]);
+                $("#removeTag").attr('disabled','disabled');
+            } else {
+                $("#runTag").val($("#runs option:selected").text());
+                $("#removeTag").removeAttr('disabled');
+            }
+            if(id !== null) {
+                $("#runColor").spectrum("enable");
+                $("#resetColor").removeAttr('disabled');
+                $("#runColor").spectrum("set", colors[ids.indexOf(id)]);
+                
+                $.get("/results/"+id+"/params", function(res) {
+                    $("#runParameters").val(JSON.stringify(res));
+                    $("#runs").removeAttr("disabled");
+                    $("#runs").focus();
+                    $("#runTag").removeAttr('disabled');
+                });
+                
+                plot.unhighlight();
+                plot.highlight(ids.indexOf(id), 0);
+            }
         } else {
-            $("#runTag").val($("#runs option:selected").text());
-            $("#removeTag").removeAttr('disabled');
-        }
-        if(id !== null) {
-            $("#runColor").spectrum("enable");
-            $("#resetColor").removeAttr('disabled');
-            $("#runColor").spectrum("set", colors[ids.indexOf(id)]);
-            
-            $.get("/results/"+id+"/params", function(res) {
-                $("#runParameters").val(JSON.stringify(res));
-                $("#runs").removeAttr("disabled");
-                $("#runs").focus();
-                $("#runTag").removeAttr('disabled');
-            });
-            
+            $("#runID").val([]);
+            $("#runTag").val([]);
+            $("#runTag").attr('disabled','disabled');
+            $("#removeTag").attr('disabled','disabled');
+            //$("#runColor").spectrum("set", '#999999');
+            //$("#runColor").spectrum("disable");
+            //$("#resetColor").attr('disabled','disabled');
             plot.unhighlight();
-            plot.highlight(ids.indexOf(id), 0);
         }
     });
     $("#runTag").on("input propertychange paste", function() {
@@ -288,25 +299,30 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
     $("#updateTag").on("click", function() {
         $("#updateTag").attr('disabled','disabled');
         $("#removeTag").attr('disabled','disabled');
-        $.post("/results/"+$("#runs").val()+"/tag/name/"+$("#runTag").val(), function() {
+        $.post("/results/"+$("#runs").val()[0]+"/tag/name/"+$("#runTag").val(), function() {
             $("#runs option:selected").html($("#runTag").val());
             $("#removeTag").removeAttr("disabled");
         });
     });
     function updateColor() {
-        var id = $("#runs").val();
         $("#resetColor").attr('disabled','disabled');
         $("#runColor").spectrum("disable");
-        $.post("/results/"+id+"/tag/color/"+$("#runColor").val().replace('#','%23'), function() {
-            colors[ids.indexOf(id)] = $("#runColor").val();
-            $("#resetColor").removeAttr("disabled");
-            $("#runColor").spectrum("enable");
-            plot.getOptions().colors = colors;
-            plot.setData(plotData);
-            plot.draw();
-            overview.getOptions().colors = colors
-            overview.setData(plotData);
-            overview.draw();
+        $("#runs").val().forEach(function(id) {
+            var color = $("#runColor").val();
+            $.post("/results/"+id+"/tag/color/"
+                    + color.replace('#','%23'), function() {
+                colors[ids.indexOf(id)] = color;
+                if(id===$("#runs").val()[$("#runs").val().length-1]) {
+                    $("#resetColor").removeAttr("disabled");
+                    $("#runColor").spectrum("enable");
+                    plot.getOptions().colors = colors;
+                    plot.setData(plotData);
+                    plot.draw();
+                    overview.getOptions().colors = colors
+                    overview.setData(plotData);
+                    overview.draw();
+                }
+            });
         });
     };
     $("#removeTag").on("click", function() {
@@ -314,27 +330,30 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
         $("#removeTag").attr('disabled','disabled');
         $.ajax({
             type: "DELETE",
-            url: "/results/"+$("#runs").val()+"/tag/name"
+            url: "/results/"+$("#runs").val()[0]+"/tag/name"
         }).done(function() {
             $("#runTag").val([]);
             $("#runs option:selected").html($("#runs option:selected").val());
         });
     });
     $("#resetColor").on("click", function() {
-        var id = $("#runs").val();
         $("#resetColor").attr('disabled','disabled');
-        $.ajax({
-            type: "DELETE",
-            url: "/results/"+$("#runs").val()+"/tag/color"
-        }).done(function() {
-            $("#runColor").spectrum("set", '#ff3333');
-            colors[ids.indexOf(id)] = $("#runColor").val();
-            plot.getOptions().colors = colors;
-            plot.setData(plotData);
-            plot.draw();
-            overview.getOptions().colors = colors;
-            overview.setData(plotData);
-            overview.draw();
+        $("#runs").val().forEach(function(id) {
+            $.ajax({
+                type: "DELETE",
+                url: "/results/"+id+"/tag/color"
+            }).done(function() {
+                colors[ids.indexOf(id)] = '#ff3333';
+                if(id===$("#runs").val()[$("#runs").val().length-1]) {
+                    $("#runColor").spectrum("set", '#ff3333');
+                    plot.getOptions().colors = colors;
+                    plot.setData(plotData);
+                    plot.draw();
+                    overview.getOptions().colors = colors;
+                    overview.setData(plotData);
+                    overview.draw();
+                }
+            });
         });
     });
 });

@@ -157,7 +157,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min"],
     $("#updateTag").on("click", function() {
         $("#updateTag").attr('disabled','disabled');
         $("#removeTag").attr('disabled','disabled');
-        $.post("/results/"+$("#runs").val()+"/tag/name/"+$("#runTag").val(), function() {
+        $.post("/results/"+$("#runs").val()[0]+"/tag/name/"+$("#runTag").val(), function() {
             $("#runs option:selected").html($("#runTag").val());
             $("#removeTag").removeAttr("disabled");
         });
@@ -178,18 +178,18 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min"],
         $("#removeTag").attr('disabled','disabled');
         $.ajax({
             type: "DELETE",
-            url: "/results/"+$("#runs").val()+"/tag/name"
+            url: "/results/"+$("#runs").val()[0]+"/tag/name"
         }).done(function() {
             $("#runTag").val([]);
             $("#runs option:selected").html($("#runs option:selected").val());
         });
     });
     $("#resetColor").on("click", function() {
-        var id = $("#runs").val();
+        var id = $("#runs").val()[0];
         $("#resetColor").attr('disabled','disabled');
         $.ajax({
             type: "DELETE",
-            url: "/results/"+$("#runs").val()+"/tag/color"
+            url: "/results/"+id+"/tag/color"
         }).done(function() {
             $("#runColor").spectrum("set", '#ff3333');
             colors[ids.indexOf(id)] = $("#runColor").val();
