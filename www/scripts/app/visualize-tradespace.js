@@ -287,9 +287,6 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
             $("#runTag").val([]);
             $("#runTag").attr('disabled','disabled');
             $("#removeTag").attr('disabled','disabled');
-            //$("#runColor").spectrum("set", '#999999');
-            //$("#runColor").spectrum("disable");
-            //$("#resetColor").attr('disabled','disabled');
             plot.unhighlight();
         }
     });
