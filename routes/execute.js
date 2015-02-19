@@ -47,7 +47,9 @@ router.post('/', function(req, res) {
             };
             for(var entity in sim.log) {
                 if(model.entity(entity) instanceof mas.sd.Flow
-                        || model.entity(entity) instanceof mas.sd.Stock) {
+                        || model.entity(entity) instanceof mas.sd.Stock
+                        && !(model.entity(entity) instanceof mas.sd.Delay1)
+                        && !(model.entity(entity) instanceof mas.sd.Smooth)) {
                     data.outputs[entity] = sim.log[entity];
                     data.finalOutputs[entity] = sim.log[entity][sim.log[entity].length-1];
                 }
