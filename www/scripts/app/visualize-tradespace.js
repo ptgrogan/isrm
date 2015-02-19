@@ -281,6 +281,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
             }
         } else {
             $("#runID").val([]);
+            $("#runParameters").val([]);
             $("#runTag").val([]);
             $("#runTag").attr('disabled','disabled');
             $("#removeTag").attr('disabled','disabled');
@@ -304,13 +305,13 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
     function updateColor() {
         $("#resetColor").attr('disabled','disabled');
         $("#runColor").spectrum("disable");
-        plot.unhighlight();
+        var numUpdated = 0;
         $("#runs").val().forEach(function(id) {
             var color = $("#runColor").val();
             $.post("/results/"+id+"/tag/color/"
                     + color.replace('#','%23'), function() {
                 colors[ids.indexOf(id)] = color;
-                if(id===$("#runs").val()[$("#runs").val().length-1]) {
+                if((++numUpdated)===$("#runs").val().length) {
                     $("#resetColor").removeAttr("disabled");
                     $("#runColor").spectrum("enable");
                     plot.getOptions().colors = colors;
@@ -319,8 +320,11 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
                     overview.getOptions().colors = colors
                     overview.setData(plotData);
                     overview.draw();
+                    plot.unhighlight();
+                    $("#runs").val().forEach(function(id) {
+                        plot.highlight(ids.indexOf(id), 0);
+                    });
                 }
-                plot.highlight(ids.indexOf(id), 0);
             });
         });
     };
@@ -337,13 +341,14 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
     });
     $("#resetColor").on("click", function() {
         $("#resetColor").attr('disabled','disabled');
+        var numUpdated = 0;
         $("#runs").val().forEach(function(id) {
             $.ajax({
                 type: "DELETE",
                 url: "/results/"+id+"/tag/color"
             }).done(function() {
                 colors[ids.indexOf(id)] = '#ff3333';
-                if(id===$("#runs").val()[$("#runs").val().length-1]) {
+                if((++numUpdated)===$("#runs").val().length) {
                     $("#runColor").spectrum("set", '#ff3333');
                     plot.getOptions().colors = colors;
                     plot.setData(plotData);
@@ -351,6 +356,10 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
                     overview.getOptions().colors = colors;
                     overview.setData(plotData);
                     overview.draw();
+                    plot.unhighlight();
+                    $("#runs").val().forEach(function(id) {
+                        plot.highlight(ids.indexOf(id), 0);
+                    });
                 }
             });
         });
