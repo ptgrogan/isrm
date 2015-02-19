@@ -49,8 +49,19 @@ router.get('/', function(req, res) {
     var dot = {};
     recurse(dot, req.query);
     
-    req.db.collection('results').find(dot, {'_id':1}).toArray(function(err, items) {
-        res.json(items);
+    // ensure tag name index to avoid sorting in memory
+    req.db.collection('results').ensureIndex('tag.name', function() {
+        // query results, sorting by tag name
+        // NOTE: MongoDB assigns NULL values first, so this query
+        // uses descending order to place NULL values at end of list
+        // TODO: future work should perform two queries and append data
+        // to have ascending tag.name sorting with NULL values at end
+        req.db.collection('results').find(dot, {
+                    fields: {'_id':1},
+                    sort: {'tag.name':-1}
+                }).toArray(function(err, items) {
+            res.json(items);
+        });
     });
 });
 
@@ -59,10 +70,19 @@ router.get('/tag', function(req, res) {
     var dot = {};
     recurse(dot, req.query);
     
-    var query = {'_id':1, 'tag': 1};
-    
-    req.db.collection('results').find(dot, query).toArray(function(err, items) {
-        res.json(items);
+    // ensure tag name index to avoid sorting in memory
+    req.db.collection('results').ensureIndex('tag.name', function() {
+        // query results, sorting by tag name
+        // NOTE: MongoDB assigns NULL values first, so this query
+        // uses descending order to place NULL values at end of list
+        // TODO: future work should perform two queries and append data
+        // to have ascending tag.name sorting with NULL values at end
+        req.db.collection('results').find(dot, {
+                    fields: {'_id':1, 'tag': 1},
+                    sort: {'tag.name':-1}
+                }).toArray(function(err, items) {
+            res.json(items);
+        });
     });
 });
 
