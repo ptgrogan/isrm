@@ -24,7 +24,7 @@ requirejs.config({
     shim: {
         "jquery.mousewheel.min": ["jquery"],
         "jquery-ui": ["jquery"],
-        "jquery.flot.selection.min": ["jquery"],
+        "jquery.flot.min": ["jquery"],
         "jquery.colorhelpers.min": ["jquery"],
         "jquery.flot.canvas.min": ["jquery"],
         "jquery.flot.categories.min": ["jquery"],
@@ -32,7 +32,6 @@ requirejs.config({
         "jquery.flot.errorbars.min": ["jquery"],
         "jquery.flot.fillbetween.min": ["jquery"],
         "jquery.flot.image.min": ["jquery"],
-        "jquery.flot.min": ["jquery"],
         "jquery.flot.navigate.min": ["jquery"],
         "jquery.flot.pie.min": ["jquery"],
         "jquery.flot.resize.min": ["jquery"],
