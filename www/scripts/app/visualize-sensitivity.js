@@ -42,11 +42,46 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min"],
                 $('<option></option>').val(entity.id).html(entity.name));
         }
     });
+    $("#sensitivityVariables").val(['nreCost','projDuration']);
 
     refreshRuns();
 
     function refreshRuns() {
-        var query = {
+        $("#baselineRun").find('option').remove();
+        $("#baselineRun").attr('disabled','disabled');
+        $.get("/data/tag", $.param(getQuery()), function(res) {
+            if(res !== null) {
+                res.forEach(function(item) {
+                    $("#baselineRun").append($('<option></option>').val(item._id).html((item.tag&&item.tag.name)?item.tag.name:item._id));
+                });
+            }
+            $("#baselineRun").removeAttr("disabled");
+        });
+        refreshComparisonRuns();
+    }
+    
+    function refreshComparisonRuns() {
+        $("#runs").find('option').remove();
+        $("#runs").attr('disabled','disabled');
+        $("#runTag").attr('disabled','disabled');
+        $("#updateTag").attr('disabled','disabled');
+        $("#removeTag").attr('disabled','disabled');
+        ids = [];
+        colors = [];
+        $.get("/data/tag"+getFilter(), $.param(getQuery()), function(res) {
+            if(res !== null) {
+                res.forEach(function(item) {
+                    ids.push(item._id);
+                    $("#runs").append($('<option></option>').val(item._id).html((item.tag&&item.tag.name)?item.tag.name:item._id));
+                    colors.push((item.tag&&item.tag.color)?item.tag.color:'#ff3333');
+                });
+            }
+            $("#runs").removeAttr("disabled");
+        });
+    }
+    
+    function getQuery() {
+        return {
             model: baseline.name,
             version: baseline.version,
             settings: {
@@ -54,28 +89,23 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min"],
                 step: Number($("#timeStep").val()),
                 max: Number($("#maxTime").val())
             }
+        };
+    }
+    
+    $('#filterRuns').change(refreshComparisonRuns);
+    function getFilter() {
+        if($('#filterRuns').val()==='') {
+            return '';
         }
-        $("#runs").find('option').remove();
-        $("#baselineRun").find('option').remove();
-        $("#runs").attr('disabled','disabled');
-        $("#baselineRun").attr('disabled','disabled');
-        $("#runTag").attr('disabled','disabled');
-        $("#updateTag").attr('disabled','disabled');
-        $("#removeTag").attr('disabled','disabled');
-        ids = [];
-        colors = [];
-        $.get("/data/tag", $.param(query), function(res) {
-            if(res !== null) {
-                res.forEach(function(item) {
-                    ids.push(item._id);
-                    $("#baselineRun").append($('<option></option>').val(item._id).html((item.tag&&item.tag.name)?item.tag.name:item._id));
-                    $("#runs").append($('<option></option>').val(item._id).html((item.tag&&item.tag.name)?item.tag.name:item._id));
-                    colors.push((item.tag&&item.tag.color)?item.tag.color:'#ff3333');
-                });
-            }
-            $("#runs").removeAttr("disabled");
-            $("#baselineRun").removeAttr("disabled");
-        });
+        var filters = $('#filterRuns').val()
+                .replace(new RegExp('\\s', 'g'), '')
+                .replace(new RegExp('!=', 'g'), '=$ne')
+                .replace(new RegExp('>=', 'g'), '=$gte')
+                .replace(new RegExp('<=', 'g'), '=$lte')
+                .replace(new RegExp('>', 'g'), '=$gt')
+                .replace(new RegExp('<', 'g'), '=$lt')
+                .split(new RegExp('[,;]', 'g'));
+        return '?params.'+filters.join("&params.");
     }
 
     $("#runs").on("change", function() {

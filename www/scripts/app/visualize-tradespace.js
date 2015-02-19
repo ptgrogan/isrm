@@ -152,7 +152,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
 
     function updateTradespace() {
         plotData = [];
-        for(var i = 0; i < plotData.length; i++) {
+        for(var i = 0; i < ids.length; i++) {
             plotData[i] = {data:[], label:ids[i]};
         }
         var xVar = $("#xAxisVariable").val();
@@ -202,9 +202,9 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
                 }
             }
             if(baseline.entity(varId) instanceof mas.sd.Stock) {
-                $.get("/data/finalOutputs/"+varId, $.param(query), callback);
+                $.get("/data/finalOutputs/"+varId+getFilter(), $.param(query), callback);
             } else if(baseline.entity(varId) instanceof mas.sd.Parameter) {
-                $.get("/data/params/"+varId, $.param(query), callback);
+                $.get("/data/params/"+varId+getFilter(), $.param(query), callback);
             }
         }
     }
@@ -226,7 +226,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
         $("#removeTag").attr('disabled','disabled');
         ids = [];
         colors = [];
-        $.get("/data/tag", $.param(query), function(res) {
+        $.get("/data/tag"+getFilter(), $.param(query), function(res) {
             if(res !== null) {
                 res.forEach(function(item) {
                     ids.push(item._id);
@@ -237,6 +237,22 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
             }
             $("#runs").removeAttr("disabled");
         });
+    }
+    
+    $('#filterRuns').change(refreshRuns);
+    function getFilter() {
+        if($('#filterRuns').val()==='') {
+            return '';
+        }
+        var filters = $('#filterRuns').val()
+                .replace(new RegExp('\\s', 'g'), '')
+                .replace(new RegExp('!=', 'g'), '=$ne')
+                .replace(new RegExp('>=', 'g'), '=$gte')
+                .replace(new RegExp('<=', 'g'), '=$lte')
+                .replace(new RegExp('>', 'g'), '=$gt')
+                .replace(new RegExp('<', 'g'), '=$lt')
+                .split(new RegExp('[,;]', 'g'));
+        return '?params.'+filters.join("&params.");
     }
 
     $("#runs").on("change", function() {

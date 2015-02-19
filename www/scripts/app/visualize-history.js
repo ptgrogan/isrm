@@ -26,6 +26,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min"],
                 $('<option></option>').val(entity.id).html(entity.name));
         }
     });
+    $("#historyVars").val('nreCost');
     $("#initTime").val(0);
     $("#timeStep").val(0.25);
     $("#maxTime").val(120);
@@ -61,7 +62,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min"],
         $("#removeTag").attr('disabled','disabled');
         ids = [];
         colors = [];
-        $.get("/data/tag", $.param(query), function(res) {
+        $.get("/data/tag"+getFilter(), $.param(query), function(res) {
             if(res !== null) {
                 res.forEach(function(item) {
                     ids.push(item._id);
@@ -71,6 +72,22 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min"],
             }
             $("#runs").removeAttr("disabled");
         });
+    }
+    
+    $('#filterRuns').change(refreshRuns);
+    function getFilter() {
+        if($('#filterRuns').val()==='') {
+            return '';
+        }
+        var filters = $('#filterRuns').val()
+                .replace(new RegExp('\\s', 'g'), '')
+                .replace(new RegExp('!=', 'g'), '=$ne')
+                .replace(new RegExp('>=', 'g'), '=$gte')
+                .replace(new RegExp('<=', 'g'), '=$lte')
+                .replace(new RegExp('>', 'g'), '=$gt')
+                .replace(new RegExp('<', 'g'), '=$lt')
+                .split(new RegExp('[,;]', 'g'));
+        return '?params.'+filters.join("&params.");
     }
 
     var plotColors = [];

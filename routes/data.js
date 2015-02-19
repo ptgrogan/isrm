@@ -26,6 +26,16 @@ function recurse(dot, obj, current) {
     } else {
         if(newKey==="model" || newKey==="version" || newKey==="settings.method") {
             dot[newKey] = value;  // it's not an object, so set the property
+        } else if(value.indexOf("$lte")===0) {
+            dot[newKey] = { $lte: Number(value.substring(4)) };
+        } else if(value.indexOf("$gte")===0) {
+            dot[newKey] = { $gte: Number(value.substring(4)) };
+        } else if(value.indexOf("$lt")===0) {
+            dot[newKey] = { $lt: Number(value.substring(3)) };
+        } else if(value.indexOf("$gt")===0) {
+            dot[newKey] = { $gt: Number(value.substring(3)) };
+        } else if(value.indexOf("$ne")===0) {
+            dot[newKey] = { $ne: Number(value.substring(3)) };
         } else {
             dot[newKey] = Number(value);
         }
