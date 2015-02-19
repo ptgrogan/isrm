@@ -278,17 +278,17 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
                     $("#runs").focus();
                     $("#runTag").removeAttr('disabled');
                 });
-                
-                plot.unhighlight();
-                plot.highlight(ids.indexOf(id), 0);
             }
         } else {
             $("#runID").val([]);
             $("#runTag").val([]);
             $("#runTag").attr('disabled','disabled');
             $("#removeTag").attr('disabled','disabled');
-            plot.unhighlight();
         }
+        plot.unhighlight();
+        $("#runs").val().forEach(function(id) {
+            plot.highlight(ids.indexOf(id), 0);
+        });
     });
     $("#runTag").on("input propertychange paste", function() {
         $("#updateTag").removeAttr("disabled");
@@ -304,6 +304,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
     function updateColor() {
         $("#resetColor").attr('disabled','disabled');
         $("#runColor").spectrum("disable");
+        plot.unhighlight();
         $("#runs").val().forEach(function(id) {
             var color = $("#runColor").val();
             $.post("/results/"+id+"/tag/color/"
@@ -319,6 +320,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min", "jquery.flot.sel
                     overview.setData(plotData);
                     overview.draw();
                 }
+                plot.highlight(ids.indexOf(id), 0);
             });
         });
     };

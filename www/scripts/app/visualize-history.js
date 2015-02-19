@@ -160,6 +160,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min"],
         $.post("/results/"+$("#runs").val()[0]+"/tag/name/"+$("#runTag").val(), function() {
             $("#runs option:selected").html($("#runTag").val());
             $("#removeTag").removeAttr("disabled");
+            updateHistory();
         });
     });
     function updateColor() {
@@ -182,6 +183,7 @@ define(["mas", "isrm", "jquery", "spectrum", "jquery.flot.min"],
         }).done(function() {
             $("#runTag").val([]);
             $("#runs option:selected").html($("#runs option:selected").val());
+            updateHistory();
         });
     });
     $("#resetColor").on("click", function() {
