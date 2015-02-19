@@ -17,6 +17,7 @@
 var express = require('express');
 var router = express.Router();
 
+// based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
 function recurse(dot, obj, current) {
   for(var key in obj) {
     var value = obj[key];
@@ -45,7 +46,6 @@ function recurse(dot, obj, current) {
 
 /* GET [id] of the results matching a query. */
 router.get('/', function(req, res) {
-    // based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
     var dot = {};
     recurse(dot, req.query);
     
@@ -56,7 +56,6 @@ router.get('/', function(req, res) {
 
 /* GET [id] and [param] of the results matching a query. */
 router.get('/tag', function(req, res) {
-    // based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
     var dot = {};
     recurse(dot, req.query);
     
@@ -69,7 +68,6 @@ router.get('/tag', function(req, res) {
 
 /* GET [id] and [param] of the results matching a query. */
 router.get('/params/:param', function(req, res) {
-    // based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
     var dot = {};
     recurse(dot, req.query);
     
@@ -83,7 +81,6 @@ router.get('/params/:param', function(req, res) {
 
 /* GET [id] and [param] of the results matching a query. */
 router.get('/outputs/:output', function(req, res) {
-    // based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
     var dot = {};
     recurse(dot, req.query);
     
@@ -97,7 +94,6 @@ router.get('/outputs/:output', function(req, res) {
 
 /* GET [id] and [param] of the results matching a query. */
 router.get('/outputs/:output/time/:time', function(req, res) {
-    // based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
     var dot = {};
     recurse(dot, req.query);
     
@@ -117,7 +113,6 @@ router.get('/outputs/:output/time/:time', function(req, res) {
 
 /* GET data element outputs. */
 router.get('/finalOutputs/:output', function(req, res) {
-    // based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
     var dot = {};
     recurse(dot, req.query);
     

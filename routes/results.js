@@ -17,6 +17,7 @@
 var express = require('express');
 var router = express.Router();
 
+// based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
 function recurse(dot, obj, current) {
   for(var key in obj) {
     var value = obj[key];
@@ -35,7 +36,6 @@ function recurse(dot, obj, current) {
 
 /* GET [id] and [tag] of the results matching a query. */
 router.get('/', function(req, res) {
-    // based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
     var dot = {};
     recurse(dot, req.query);
     
@@ -50,18 +50,6 @@ router.get('/:id', function(req, res) {
     res.json(item);
   });
 });
-
-/* GET [id] and [property] of the results matching a query.
-router.get('/:id/:property', function(req, res) {
-    // based on http://stackoverflow.com/questions/13218745/convert-complex-json-object-to-dot-notation-json-object
-    
-    var query = {'_id':0};
-    query[req.params.property] = 1;
-    
-    req.db.collection('results').findById(req.params.id, query), function(err, item) {
-        res.json(item);
-    });
-}); */
 
 /* GET data element settings. */
 router.get('/:id/settings', function(req, res) {
@@ -206,16 +194,6 @@ router.post('/', function(req, res) {
             res.send((err===null)?{'_id': doc._id}:{err:err});
         }
     );
-    /*
-    req.db.collection('results').insert(req.body, function(err, result) {
-        if(err===null) {
-            console.log(result);
-        } else {
-            console.log(err);
-        }
-        res.send((err===null)?{msg:''}:{msg:err});
-    });
-    */
 });
 
 var mongo = require('mongoskin');
