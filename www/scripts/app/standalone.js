@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-define(["kinetic.min", "mas", "isrm", "stockFlowDiagram", 
+define(["mas", "isrm", "stockFlowDiagram", 
         "jquery", "jquery-ui", "jquery.mousewheel.min", "jquery.flot.min"], 
-        function(Kinetic, mas, isrm, StockFlowDiagram, $) {
+        function(mas, isrm, StockFlowDiagram, $) {
     var running = false;            // is simulation animation running
     var initialized = false;        // is simulation initialized
     var animationRate = 30;         // maximum, in Hertz
