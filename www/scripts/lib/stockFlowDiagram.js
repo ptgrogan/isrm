@@ -19,6 +19,8 @@ if (typeof define !== 'function') {
 }
 
 define(function(require) {
+    var Kinetic = require('kinetic.min');
+    
     /**
      * The StockFlowDiagram class defines a stock-and-flow diagram.
      * @type Object
