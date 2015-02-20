@@ -84,6 +84,35 @@ define(["kinetic.min", "mas", "isrm", "stockFlowDiagram",
     $("#timeStep").val(sim.timeStep);
     $("#maxTime").val(sim.maxTime);
     
+    // set up settings dialog
+    $("#settingsDialog").dialog({
+        autoOpen: false,
+        width: 600,
+        position: "top",
+        buttons: [{text: "OK", click: function(){ $(this).dialog("close") } }]
+    });
+    
+    // set up parameter dialog
+    $("#parameterDialog").dialog({
+        autoOpen: false,
+        width: 600,
+        buttons: [{text: "OK", click: function(){ $(this).dialog("close") } }]
+    });
+    
+    // set up flow dialog
+    $("#flowDialog").dialog({
+        autoOpen: false,
+        width: 600,
+        buttons: [{text: "OK", click: function(){ $(this).dialog("close") } }]
+    });
+    
+    // set up stock dialog
+    $("#stockDialog").dialog({
+        autoOpen: false,
+        width: 600,
+        buttons: [{text: "OK", click: function(){ $(this).dialog("close") } }]
+    });
+    
     // callback to update plot when simulation is changed
     sim.on("init advance", function(time) {
         for(var i = 0; i < plots.length; i++) {
@@ -263,35 +292,6 @@ define(["kinetic.min", "mas", "isrm", "stockFlowDiagram",
         a.download = "export_" + new Date().getTime() + ".csv";
         a.click();
         window.URL.revokeObjectURL(url);
-    });
-    
-    // set up settings dialog
-    $("#settingsDialog").dialog({
-        autoOpen: false,
-        width: 600,
-        position: "top",
-        buttons: [{text: "OK", click: function(){ $(this).dialog("close") } }]
-    });
-    
-    // set up parameter dialog
-    $("#parameterDialog").dialog({
-        autoOpen: false,
-        width: 600,
-        buttons: [{text: "OK", click: function(){ $(this).dialog("close") } }]
-    });
-    
-    // set up flow dialog
-    $("#flowDialog").dialog({
-        autoOpen: false,
-        width: 600,
-        buttons: [{text: "OK", click: function(){ $(this).dialog("close") } }]
-    });
-    
-    // set up stock dialog
-    $("#stockDialog").dialog({
-        autoOpen: false,
-        width: 600,
-        buttons: [{text: "OK", click: function(){ $(this).dialog("close") } }]
     });
     
     // build the diagram and add all its components
