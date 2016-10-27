@@ -627,7 +627,7 @@ define(["mas", "isrm", "stockFlowDiagram",
                 .replace(/\s+\+\s+/g,'+').replace(/\+/g, ' + ')
                 .replace(/\s+\-\s+/g,'-').replace(/\-/g, ' - ')
                 .replace(/\s+\/\s+/g,'/').replace(/\//g, ' / ')
-                .replace(/function\s*\(\s*\)\s*\{/g,'')
+                .replace(/function\s*\(.*\)\s*\{/g,'')
                 .replace(/;/g,'').replace(/\mas.util\.Utils\.intPart/g,'int')
                 .replace(/return/g,'').replace(/\}\s*$/g,'')
                 .replace(/sim\.value\("/g,'').replace(/"\)/g,'');
